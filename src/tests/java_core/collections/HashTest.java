@@ -1,6 +1,7 @@
 package tests.java_core.collections;
 
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class HashTest {
 
@@ -11,6 +12,9 @@ public class HashTest {
     }
 
     public static void main(String args[]) {
+
+//        Scanner sc = new Scanner(System.in);
+
         HashTest h1 = new HashTest("1");
         HashTest h2 = new HashTest("1");
         String s1 = new String("2");
