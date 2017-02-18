@@ -20,24 +20,32 @@ public class CollectionsTest {
         _performanceTest3(new ArrayList<>());
         _performanceTest3(new LinkedList<>());
 
+        _performanceTest4(new LinkedList<>());
+        _performanceTest4(new ArrayList<>());
     }
 
     /**
      * Вставка в начало списка
      * */
     private static void _performanceTest(List<Date> list) {
+        System.out.println("Вставка в начало списка "+list.getClass() );
         long t1 = new Date().getTime();
+        initList(list);
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
+    }
+
+    private static void initList(List<Date> list) {
         for (int i = 0; i < 3000000; i++) {
             list.add(new Date());
         }
-        long t2 = new Date().getTime();
-        System.out.println(t2-t1 + " " + list.size());
     }
 
     /**
      * Вставка в середину списка
      * */
     private static void _performanceTest2(List<Date> list) {
+        System.out.println("Вставка в середину списка "+list.getClass());
         long t1 = new Date().getTime();
         for (int i = 0; i < 100000; i++) {
             list.add(list.size()/2, new Date());
@@ -47,9 +55,24 @@ public class CollectionsTest {
     }
 
     /**
+     * Вставка в середину списка
+     * */
+    private static void _performanceTest4(List<Date> list) {
+        System.out.println("Вставка в середину списка "+list.getClass());
+        long t1 = new Date().getTime();
+        initList(list);
+        ListIterator iterator = list.listIterator(1000);
+        iterator.add(new Date());
+
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
+    }
+
+    /**
      * Вставка в конец списка
      * */
     private static void _performanceTest3(List<Date> list) {
+        System.out.println("Вставка в конец списка "+list.getClass());
         long t1 = new Date().getTime();
         for (int i = 0; i < 100000; i++) {
             list.add(0, new Date());
