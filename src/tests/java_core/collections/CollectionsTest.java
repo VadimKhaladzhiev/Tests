@@ -22,6 +22,25 @@ public class CollectionsTest {
 
         _performanceTest4(new LinkedList<>());
         _performanceTest4(new ArrayList<>());
+
+        _performanceTest0(new LinkedList<>());
+        _performanceTest0(new ArrayList<>());
+    }
+
+    /**
+     * Вставка в начало списка
+     * */
+    private static void _performanceTest0(List<Date> list) {
+        System.out.println("Вставка в начало списка "+list.getClass() );
+        initList(list);
+        ListIterator iterator = list.listIterator(19000);
+
+        long t1 = new Date().getTime();
+        for (int i = 0; i < 300; i++) {
+            iterator.add(new Date());
+        }
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
     }
 
     /**
