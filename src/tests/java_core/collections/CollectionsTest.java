@@ -2,87 +2,48 @@ package tests.java_core.collections;
 
 import java.util.*;
 
+
 public class CollectionsTest {
     public static void main(String[] args) {
-        performanceTest();
-//        setTest();
-//        listTest();
-//        mapTest();
+        insert();
+        remove();
     }
 
-    private static void performanceTest() {
-        _performanceTest(new ArrayList<>());
-        _performanceTest(new LinkedList<>());
+    private static void remove() {
+        removeFirst(new ArrayList<>());
+        removeFirst(new LinkedList<>());
 
-        _performanceTest2(new ArrayList<>());
-        _performanceTest2(new LinkedList<>());
+        removeMiddle(new ArrayList<>());
+        removeMiddle(new LinkedList<>());
 
-        _performanceTest3(new ArrayList<>());
-        _performanceTest3(new LinkedList<>());
-
-        _performanceTest4(new LinkedList<>());
-        _performanceTest4(new ArrayList<>());
-
-        _performanceTest0(new LinkedList<>());
-        _performanceTest0(new ArrayList<>());
+        removeLast(new ArrayList<>());
+        removeLast(new LinkedList<>());
     }
 
-    /**
-     * Вставка в начало списка
-     * */
-    private static void _performanceTest0(List<Date> list) {
-        System.out.println("Вставка в начало списка "+list.getClass() );
-        initList(list);
-        ListIterator iterator = list.listIterator(19000);
+    private static void insert() {
+        insertFirst(new ArrayList<>());
+        insertFirst(new LinkedList<>());
 
-        long t1 = new Date().getTime();
-        for (int i = 0; i < 300; i++) {
-            iterator.add(new Date());
-        }
-        long t2 = new Date().getTime();
-        System.out.println(t2-t1 + " " + list.size());
+        insertLast(new ArrayList<>());
+        insertLast(new LinkedList<>());
+
+        insertMiddle(new ArrayList<>());
+        insertMiddle(new LinkedList<>());
+
+        insertMiddleIterator(new ArrayList<>());
+        insertMiddleIterator(new LinkedList<>());
     }
 
     /**
      * Вставка в начало списка
      * */
-    private static void _performanceTest(List<Date> list) {
+    private static void insertFirst(List<Date> list) {
         System.out.println("Вставка в начало списка "+list.getClass() );
-        long t1 = new Date().getTime();
-        initList(list);
-        long t2 = new Date().getTime();
-        System.out.println(t2-t1 + " " + list.size());
-    }
-
-    private static void initList(List<Date> list) {
-        for (int i = 0; i < 3000000; i++) {
-            list.add(new Date());
-        }
-    }
-
-    /**
-     * Вставка в середину списка
-     * */
-    private static void _performanceTest2(List<Date> list) {
-        System.out.println("Вставка в середину списка "+list.getClass());
+        list.add(new Date());
         long t1 = new Date().getTime();
         for (int i = 0; i < 100000; i++) {
-            list.add(list.size()/2, new Date());
+            list.add(0, new Date());
         }
-        long t2 = new Date().getTime();
-        System.out.println(t2-t1 + " " + list.size());
-    }
-
-    /**
-     * Вставка в середину списка
-     * */
-    private static void _performanceTest4(List<Date> list) {
-        System.out.println("Вставка в середину списка "+list.getClass());
-        long t1 = new Date().getTime();
-        initList(list);
-        ListIterator iterator = list.listIterator(1000);
-        iterator.add(new Date());
-
         long t2 = new Date().getTime();
         System.out.println(t2-t1 + " " + list.size());
     }
@@ -90,7 +51,7 @@ public class CollectionsTest {
     /**
      * Вставка в конец списка
      * */
-    private static void _performanceTest3(List<Date> list) {
+    private static void insertLast(List<Date> list) {
         System.out.println("Вставка в конец списка "+list.getClass());
         long t1 = new Date().getTime();
         for (int i = 0; i < 100000; i++) {
@@ -100,49 +61,83 @@ public class CollectionsTest {
         System.out.println(t2-t1 + " " + list.size());
     }
 
-    private static void mapTest() {
-        Map<Object, Object> map = new HashMap<>(4);
-        map.put(2, "A");
-        map.put(4, "B");
-        map.put(8, "C");
-        map.put(32, "D");
-        System.out.println(map.size());
-        for (Object o : map.values() ) {
-            System.out.println(o);
+    /**
+     * Вставка в середину списка
+     * */
+    private static void insertMiddle(List<Date> list) {
+        System.out.println("Вставка в середину списка "+list.getClass());
+        initList(list);
+        long t1 = new Date().getTime();
+        for (int i = 0; i < 3000; i++) {
+            list.add(190000, new Date());
         }
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
     }
 
-    private static void listTest() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add(null);
-        list.add(null);
-        list.add(null);
-        list.add(null);
-        System.out.println(list.size());
+    /**
+     * Вставка в середину списка через итератор
+     * */
+    private static void insertMiddleIterator(List<Date> list) {
+        System.out.println("Вставка в середину списка через итератор "+list.getClass() );
+        initList(list);
+        ListIterator iterator = list.listIterator(19000);
+
+        long t1 = new Date().getTime();
+        for (int i = 0; i < 3000; i++) {
+            iterator.add(new Date());
+        }
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
     }
 
-    private static void setTest() {
-        Set<Object> set = new HashSet<>();
-        Integer a = 300;
-        Integer b = 300;
-        Integer c = 3;
-        Integer d = 4;
-// Integer a = new Integer(2);
-//        Integer b = new Integer(2);
-//        Integer c = new Integer(3);
-//        Integer d = new Integer(4);
-        System.out.println(a==b);
-        System.out.println(System.identityHashCode(a));
-        System.out.println(System.identityHashCode(b));
-        System.out.println(System.identityHashCode(c));
-        System.out.println(System.identityHashCode(d));
-        set.add(a);
-        set.add(b);
-        set.add(c);
-        set.add(d);
-        System.out.println(set.size());
-        for (Object o : set) {
-            System.out.println(o.toString() + " " + System.identityHashCode(o));
+    /**
+     * Удаление из начала списка
+     * */
+    private static void removeFirst(List<Date> list) {
+        System.out.println("Удаление из начала списка "+list.getClass() );
+        initList(list);
+        long t1 = new Date().getTime();
+        for (int i = 0; i < 1000; i++) {
+            list.remove(0);
+        }
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
+    }
+
+    /**
+     * Удаление из середины списка
+     * */
+    private static void removeMiddle(List<Date> list) {
+        System.out.println("Удаление из середины списка "+list.getClass() );
+        initList(list);
+        long t1 = new Date().getTime();
+        for (int i = 0; i < 100000; i++) {
+            list.remove(1000);
+        }
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
+    }
+
+
+    /**
+     * Удаление из конца списка
+     * */
+    private static void removeLast(List<Date> list) {
+        System.out.println("Удаление из конца списка "+list.getClass() );
+        initList(list);
+        long t1 = new Date().getTime();
+        for (int i = 0; i < 1000000; i++) {
+            list.remove(list.size()-1);
+        }
+        long t2 = new Date().getTime();
+        System.out.println(t2-t1 + " " + list.size());
+    }
+
+
+    private static void initList(List<Date> list) {
+        for (int i = 0; i < 1000000; i++) {
+            list.add(new Date());
         }
     }
 }
