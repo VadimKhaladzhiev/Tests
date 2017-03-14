@@ -6,6 +6,11 @@ public class SingletonTest {
 //        Singleton singleton = Singleton.INSTANCE;
 //        singleton.print();
         System.out.println(OndemandSingleton.a);
+        try {
+            Thread.sleep(10000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        OndemandSingleton ondemandSingleton = OndemandSingleton.getInstance();
 //        ondemandSingleton.print();
     }
